@@ -1,6 +1,6 @@
 [package]
 name = "mdtg"
-version = "0.1.0"
+version = "1.0.0"
 authors = ["lukakerr <lukakerr1@gmail.com>"]
 description = "Quickly generate markdown tables in your terminal using a simplistic specification"
 homepage = "https://github.com/lukakerr/mdtg"
