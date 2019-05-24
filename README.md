@@ -2,6 +2,21 @@
 
 Quickly generate markdown tables in your terminal using a simplistic specification.
 
+### Installation
+
+#### `crates.io`
+
+```bash
+$ cargo install mdtg
+```
+
+#### Manual
+
+```bash
+$ git clone https://github.com/lukakerr/mdtg.git
+$ cargo run
+```
+
 ### Usage
 
 ```bash
