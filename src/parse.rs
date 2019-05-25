@@ -94,12 +94,12 @@ fn parse_columns(tokens: &mut Vec<Token>) -> Result<Node, String> {
         }
 
         if columns_node.children.len() > n as usize {
-            Err(format!("Number of positions exceed number of columns"))
+            Err("Number of positions exceed number of columns".to_string())
         } else {
             Ok(columns_node)
         }
     } else {
-        Err(format!("Expected a column number"))
+        Err("Expected a column number".to_string())
     }
 }
 
@@ -109,7 +109,7 @@ fn parse_cross(tokens: &mut Vec<Token>) -> Result<Node, String> {
     if let Some(Token::Cross) = tok {
         Ok(Node::new(AST::Cross))
     } else {
-        Err(format!("Expected 'x'"))
+        Err("Expected 'x'".to_string())
     }
 }
 
@@ -119,7 +119,7 @@ fn parse_rows(tokens: &mut Vec<Token>) -> Result<Node, String> {
     if let Some(Token::Num(n)) = tok {
         Ok(Node::new(AST::Row(n)))
     } else {
-        Err(format!("Expected a row number"))
+        Err("Expected a row number".to_string())
     }
 }
 
@@ -174,19 +174,19 @@ mod tests {
     #[test]
     fn test_missing_x_spec() {
         let tokens = vec![Token::Num(3), Token::Num(5)];
-        assert_eq!(parse(tokens), Err(format!("Expected 'x'")));
+        assert_eq!(parse(tokens), Err("Expected 'x'".to_string()));
     }
 
     #[test]
     fn test_missing_column_spec() {
         let tokens = vec![Token::Cross, Token::Num(5)];
-        assert_eq!(parse(tokens), Err(format!("Expected a column number")));
+        assert_eq!(parse(tokens), Err("Expected a column number".to_string()));
     }
 
     #[test]
     fn test_missing_row_spec() {
         let tokens = vec![Token::Num(3), Token::Cross];
-        assert_eq!(parse(tokens), Err(format!("Expected a row number")));
+        assert_eq!(parse(tokens), Err("Expected a row number".to_string()));
     }
 
     #[test]
@@ -199,7 +199,7 @@ mod tests {
         ];
         assert_eq!(
             parse(tokens),
-            Err(format!("Number of positions exceed number of columns"))
+            Err("Number of positions exceed number of columns".to_string())
         );
     }
 }

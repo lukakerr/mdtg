@@ -33,7 +33,7 @@ pub fn tokenize(input: &str) -> Result<Vec<Token>, String> {
             ' ' => {
                 it.next();
             }
-            '0' => return Err(format!("Column/row number must be > 0")),
+            '0' => return Err("Column/row number must be > 0".to_string()),
             _ => return Err(format!("Unexpected input '{}'", c)),
         }
     }
