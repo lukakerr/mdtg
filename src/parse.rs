@@ -61,9 +61,9 @@ pub fn parse(mut tokens: Vec<Token>) -> Result<Node, String> {
 }
 
 fn parse_spec(tokens: &mut Vec<Token>) -> Result<Node, String> {
-    let columns_node = try!(parse_columns(tokens));
-    let cross_node = try!(parse_cross(tokens));
-    let rows_node = try!(parse_rows(tokens));
+    let columns_node = parse_columns(tokens)?;
+    let cross_node = parse_cross(tokens)?;
+    let rows_node = parse_rows(tokens)?;
 
     let mut spec_node = Node::new(AST::Spec);
 
