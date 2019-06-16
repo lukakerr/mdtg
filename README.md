@@ -1,5 +1,7 @@
 # Markdown Table Generator `mdtg`
 
+[![Crates.io](https://img.shields.io/crates/d/mdtg.svg)](https://crates.io/crates/mdtg)
+
 Quickly generate markdown tables in your terminal using a simplistic specification.
 
 ### Installation
