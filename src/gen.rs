@@ -59,7 +59,7 @@ fn gen_rows(ast: &Node, output: &mut String) {
 
     if let AST::Column(c) = column_node.item {
         if let AST::Row(r) = row_node.item {
-            for _ in 0..(r - 2) {
+            for _ in 0..(r - 1) {
                 gen_row(c, true, output);
             }
 
@@ -99,6 +99,7 @@ mod tests {
              |        |        |        |\n\
              |        |        |        |\n\
              |        |        |        |\n\
+             |        |        |        |\n\
              |        |        |        |"
                 .to_string()
         );
@@ -127,6 +128,7 @@ mod tests {
             "\
              |        |        |        |        |        |        |\n\
              | ------ |:------:| ------:| ------ | ------ | ------ |\n\
+             |        |        |        |        |        |        |\n\
              |        |        |        |        |        |        |"
                 .to_string()
         );

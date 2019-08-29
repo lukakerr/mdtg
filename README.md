@@ -30,12 +30,14 @@ $ mdtg 4x4
 |        |        |        |        |
 |        |        |        |        |
 |        |        |        |        |
+|        |        |        |        |
 
 # Create a 3 by 5 table, with left, center and right aligned columns
 $ mdtg "3lcr x 5"
 
 |        |        |        |
 | ------ |:------:| ------:|
+|        |        |        |
 |        |        |        |
 |        |        |        |
 |        |        |        |
