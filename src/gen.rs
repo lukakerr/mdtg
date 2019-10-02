@@ -9,12 +9,12 @@ static INDENT: &str = "        ";
 pub fn gen(ast: &Node) -> String {
     let mut output = String::new();
 
-    gen_spec(ast, &mut output);
+    gen_table(ast, &mut output);
 
     output
 }
 
-fn gen_spec(ast: &Node, output: &mut String) {
+fn gen_table(ast: &Node, output: &mut String) {
     gen_header(&ast, output);
     gen_rows(&ast, output);
 }
@@ -83,16 +83,16 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_simple_spec() {
-        let mut spec_node = Node::new(AST::Spec);
+    fn test_simple_table() {
+        let mut table_node = Node::new(AST::Table);
         let column_node = Node::new(AST::Column(3));
         let cross_node = Node::new(AST::Cross);
         let row_node = Node::new(AST::Row(5));
 
-        spec_node.add_children(&[column_node, cross_node, row_node]);
+        table_node.add_children(&[column_node, cross_node, row_node]);
 
         assert_eq!(
-            gen(&spec_node),
+            gen(&table_node),
             "\
              |        |        |        |\n\
              | ------ | ------ | ------ |\n\
@@ -106,8 +106,8 @@ mod tests {
     }
 
     #[test]
-    fn test_complex_spec() {
-        let mut spec_node = Node::new(AST::Spec);
+    fn test_complex_table() {
+        let mut table_node = Node::new(AST::Table);
         let mut column_node = Node::new(AST::Column(6));
         let cross_node = Node::new(AST::Cross);
         let row_node = Node::new(AST::Row(2));
@@ -121,10 +121,10 @@ mod tests {
             center_position_node,
             right_position_node,
         ]);
-        spec_node.add_children(&[column_node, cross_node, row_node]);
+        table_node.add_children(&[column_node, cross_node, row_node]);
 
         assert_eq!(
-            gen(&spec_node),
+            gen(&table_node),
             "\
              |        |        |        |        |        |        |\n\
              | ------ |:------:| ------:| ------ | ------ | ------ |\n\

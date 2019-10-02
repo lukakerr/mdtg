@@ -47,7 +47,7 @@ $ mdtg "3lcr x 5"
 ### BNF Grammar
 
 ```
-Spec      -> Column Cross Row
+Table     -> Column Cross Row
 Column    -> Num Positions
 Row       -> Num
 Num       -> Digit | Digit Num

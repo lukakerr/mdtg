@@ -7,7 +7,7 @@ pub enum AST {
     Row(usize),
     Position(char),
     Cross,
-    Spec,
+    Table,
 }
 
 /// Represents an AST node, containing an AST item and a list of children nodes
@@ -34,7 +34,7 @@ impl Node {
 
 /// Parse a list of tokens into an AST.
 ///
-/// Returns a node representing the markdown table specification AST,
+/// Returns a node representing the markdown table tableification AST,
 /// or a string representing an error that has occurred during parsing.
 ///
 /// For example, an AST returned could look like
@@ -52,24 +52,24 @@ impl Node {
 ///     Node { children: [], item: Cross },
 ///     Node { children: [], item: Rows(5) }
 ///   ],
-///   item: Spec
+///   item: Table
 /// }
 /// ```
 pub fn parse(mut tokens: Vec<Token>) -> Result<Node, String> {
     tokens.reverse();
-    parse_spec(&mut tokens)
+    parse_table(&mut tokens)
 }
 
-fn parse_spec(tokens: &mut Vec<Token>) -> Result<Node, String> {
+fn parse_table(tokens: &mut Vec<Token>) -> Result<Node, String> {
     let columns_node = parse_columns(tokens)?;
     let cross_node = parse_cross(tokens)?;
     let rows_node = parse_rows(tokens)?;
 
-    let mut spec_node = Node::new(AST::Spec);
+    let mut table_node = Node::new(AST::Table);
 
-    spec_node.add_children(&[columns_node, cross_node, rows_node]);
+    table_node.add_children(&[columns_node, cross_node, rows_node]);
 
-    Ok(spec_node)
+    Ok(table_node)
 }
 
 fn parse_columns(tokens: &mut Vec<Token>) -> Result<Node, String> {
@@ -128,21 +128,21 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_simple_spec() {
+    fn test_simple_table() {
         let tokens = vec![Token::Num(3), Token::Cross, Token::Num(5)];
 
-        let mut spec_node = Node::new(AST::Spec);
+        let mut table_node = Node::new(AST::Table);
         let column_node = Node::new(AST::Column(3));
         let cross_node = Node::new(AST::Cross);
         let row_node = Node::new(AST::Row(5));
 
-        spec_node.add_children(&[column_node, cross_node, row_node]);
+        table_node.add_children(&[column_node, cross_node, row_node]);
 
-        assert_eq!(parse(tokens), Ok(spec_node));
+        assert_eq!(parse(tokens), Ok(table_node));
     }
 
     #[test]
-    fn test_complex_spec() {
+    fn test_complex_table() {
         let tokens = vec![
             Token::Num(6),
             Token::Position('l'),
@@ -152,7 +152,7 @@ mod tests {
             Token::Num(2),
         ];
 
-        let mut spec_node = Node::new(AST::Spec);
+        let mut table_node = Node::new(AST::Table);
         let mut column_node = Node::new(AST::Column(6));
         let cross_node = Node::new(AST::Cross);
         let row_node = Node::new(AST::Row(2));
@@ -166,31 +166,31 @@ mod tests {
             center_position_node,
             right_position_node,
         ]);
-        spec_node.add_children(&[column_node, cross_node, row_node]);
+        table_node.add_children(&[column_node, cross_node, row_node]);
 
-        assert_eq!(parse(tokens), Ok(spec_node));
+        assert_eq!(parse(tokens), Ok(table_node));
     }
 
     #[test]
-    fn test_missing_x_spec() {
+    fn test_missing_x_table() {
         let tokens = vec![Token::Num(3), Token::Num(5)];
         assert_eq!(parse(tokens), Err("Expected 'x'".to_string()));
     }
 
     #[test]
-    fn test_missing_column_spec() {
+    fn test_missing_column_table() {
         let tokens = vec![Token::Cross, Token::Num(5)];
         assert_eq!(parse(tokens), Err("Expected a column number".to_string()));
     }
 
     #[test]
-    fn test_missing_row_spec() {
+    fn test_missing_row_table() {
         let tokens = vec![Token::Num(3), Token::Cross];
         assert_eq!(parse(tokens), Err("Expected a row number".to_string()));
     }
 
     #[test]
-    fn test_excess_positions_spec() {
+    fn test_excess_positions_table() {
         let tokens = vec![
             Token::Num(1),
             Token::Position('c'),

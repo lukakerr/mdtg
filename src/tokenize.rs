@@ -57,7 +57,7 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_simple_spec() {
+    fn test_simple_table() {
         let input = "3 x 5";
         assert_eq!(
             tokenize(&input),
@@ -66,7 +66,7 @@ mod tests {
     }
 
     #[test]
-    fn test_complex_spec() {
+    fn test_complex_table() {
         let input = "6lcr x 2";
         assert_eq!(
             tokenize(&input),
@@ -82,7 +82,7 @@ mod tests {
     }
 
     #[test]
-    fn test_invalid_spec() {
+    fn test_invalid_table() {
         let input = "3a x 5";
         assert!(tokenize(&input).is_err());
     }
