@@ -34,7 +34,7 @@ impl Node {
 
 /// Parse a list of tokens into an AST.
 ///
-/// Returns a node representing the markdown table tableification AST,
+/// Returns a node representing the markdown table specification AST,
 /// or a string representing an error that has occurred during parsing.
 ///
 /// For example, an AST returned could look like
